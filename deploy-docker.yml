@@ -21,8 +21,8 @@
         state: present
     - name: Start the container
       docker_container:
-        name: taskapp
-        image: "venkatnarla3/taskapp:{{DOCKER_TAG}}"
+        name: project-1
+        image: "venkatnarla3/0001:{{DOCKER_TAG}}"
         state: started
         published_ports:
           - 0.0.0.0:8080:8080
