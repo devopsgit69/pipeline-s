@@ -22,7 +22,7 @@
     - name: Start the container
       docker_container:
         name: project-1
-        image: "venkatnarla3/0001:{{DOCKER_TAG}}"
+        image: "rakeshmiriyala/0001:{{DOCKER_TAG}}"
         state: started
         published_ports:
           - 0.0.0.0:8080:8080
