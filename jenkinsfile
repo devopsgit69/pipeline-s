@@ -1,0 +1,44 @@
+pipeline{
+    agent any
+    environment{
+        PATH ="/opt/apache-maven-3.8.6/bin/:$PATH"
+    }
+    stages{
+        stage('checkout'){
+            steps{
+              git 'https://github.com/devopsgit69/devops_project.git'  
+            }
+        }
+        stage('unit_test'){
+            steps{
+                sh 'mvn test'
+            }
+        }
+        stage('integration testing'){
+            steps{
+                sh 'mvn verify -DskiUnitTests'
+            }
+        }
+        stage('build'){
+            steps{
+                sh 'mvn clean install'
+            }
+        }
+        stage('sonarqube analysis'){
+            steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'for_jenkins') {
+                        sh 'mvn clean package sonar:sonar'
+                   }
+                }
+            }
+        }
+        stage('Quality code'){
+            steps{
+                script{
+                    waitForQualityGate abortPipeline: false, credentialsId: 'for_jenkins'
+                }
+            }
+        } 
+    }
+}
