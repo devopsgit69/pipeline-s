@@ -40,5 +40,26 @@ pipeline{
                 }
             }
         } 
+        stage('upload artfact into nexus'){
+            steps{
+                script{
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'dockeransible', 
+                            classifier: '', file: 'target/dockeransible.war', 
+                            type: 'war'
+                            ]
+                    ], 
+                    credentialsId: 'nexus_cred', 
+                    groupId: 'in.javahome', 
+                    nexusUrl: '13.233.96.251:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'nexus_repository', 
+                    version: '1.0.0'
+                }
+            }
+        }
     }
 }
