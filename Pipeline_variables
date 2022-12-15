@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+    environment{
+        MY_NAME = 'Rakesh'
+    }
+    stages{
+        stage('checout'){
+            steps{
+                echo "Jenkins"
+            }
+        }
+        stage('build'){
+            steps{
+                echo "Ansible"
+            }
+        }
+        stage('sonarqube'){
+            steps{
+                echo "Docker"
+            }
+        }
+        stage('artFactory'){
+            steps{
+                echo "Terraform"
+            }
+        }
+        stage('dploy'){
+            steps{
+                echo "my name is ${MY_NAME}"
+                echo "the jenkins url is ${JOB_URL}"
+                sh 'printenv'
+            }
+        }
+    }
+}
